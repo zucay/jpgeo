@@ -21,6 +21,7 @@ class Tky2jgd < ActiveRecord::Base
 		return out
 	end
 	def self.tky2jgd(latlng, opts = {:reverse=>false})
+		o_latlng = [nil, nil]
 		mesh2 = self.tkylatlng2mesh(latlng)
 		#tkylatlng2mesh(latlng)で取得されるメッシュは2次メッシュ6桁なので、3次メッシュの中心(55)を追加
 		mesh3 = "#{mesh2}55"
@@ -31,21 +32,23 @@ class Tky2jgd < ActiveRecord::Base
 			ele = self.where("meshcode like '#{mesh2}%'")[0]
 		end
 		if(!ele)
-			raise "meshcode not found, latlng=#{latlng[0]}, #{latlng[1]}"
-		end
-		#dl:経度の秒補正、db:緯度の秒補正
-		dl = ele.dL
-		db = ele.dB
-
-		if(opts[:reverse] == false)
-			latlng[0] =latlng[0] + db/3600
-			latlng[1] =latlng[1] + dl/3600
+			#raise "meshcode not found, latlng=#{latlng[0]}, #{latlng[1]}"
 		else
-			latlng[0] =latlng[0] - db/3600
-			latlng[1] =latlng[1] - dl/3600
+			#dl:経度の秒補正、db:緯度の秒補正
+			dl = ele.dL
+			db = ele.dB
+
+			if(opts[:reverse] == false)
+				o_latlng[0] =latlng[0] + db/3600
+				o_latlng[1] =latlng[1] + dl/3600
+			else
+				o_latlng[0] =latlng[0] - db/3600
+				o_latlng[1] =latlng[1] - dl/3600
+			end
+
 		end
 
-		return latlng		
+		return o_latlng		
 	end
 	
 	def self.ipc2jgd(latlng256)
@@ -61,7 +64,7 @@ class Tky2jgd < ActiveRecord::Base
 		lat256jp = (jpdegree_ll[0] * 3600 * 256).to_i
 		lng256jp = (jpdegree_ll[1] * 3600 * 256).to_i
 		out = [lat256jp, lng256jp]
-		p "#####out#####"
+
 		return out
 	end
 	

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823022238) do
+ActiveRecord::Schema.define(:version => 20111220055217) do
 
   create_table "tky2jgds", :force => true do |t|
     t.string   "meshcode"
@@ -19,5 +19,7 @@ ActiveRecord::Schema.define(:version => 20110823022238) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tky2jgds", ["meshcode"], :name => "index_tky2jgds_on_meshcode"
 
 end
