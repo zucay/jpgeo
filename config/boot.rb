@@ -13,5 +13,9 @@ module Rails
 			})                     
 		end                                  
 	end                                    
-end                                      
+end
 
+#for Psych::SyntaxError
+#use old syck instead of psych
+require 'yaml'
+YAML::ENGINE.yamler = 'syck'
