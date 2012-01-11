@@ -36,3 +36,4 @@ group :development do
 	gem 'rails-erd'
 end
 gem 'spreadsheet'
+gem 'inherited_resources'

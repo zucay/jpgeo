@@ -1,5 +1,6 @@
 Geoutil::Application.routes.draw do
-	resources :tky2jgd
+  resources :tky2jgd
+  resources :addr
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
