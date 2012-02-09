@@ -3,6 +3,7 @@ Geoutil::Application.routes.draw do
   match 'addr/cities' => 'addr#cities'
   resources :addr
   resources :postal_codes
+  resources :bizhour
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

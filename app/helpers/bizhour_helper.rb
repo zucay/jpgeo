@@ -1,0 +1,2 @@
+module BizhourHelper
+end
