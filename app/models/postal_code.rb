@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class PostalCode < ActiveRecord::Base
   def self.load(file)
     if(!file)
@@ -17,5 +18,22 @@ class PostalCode < ActiveRecord::Base
     sql = sql + recs.join(',') + ';'
     p 'sql execute'
     self.connection.execute(sql)
+  end
+  
+
+  #utility methods
+  def self.cities(pref)
+    cities = []
+    if(!pref)
+      recs = []
+    else
+      recs = PostalCode.where('pref = ?', pref)
+    end
+
+    recs.each do |rec|
+      cities << rec.city
+    end
+    cities = cities.uniq
+    return cities
   end
 end

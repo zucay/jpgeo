@@ -1,0 +1,20 @@
+<h1>Listing <%= resource_class %></h1>
+
+<table border=1 cellspacing=0>
+  <tr>
+    <% resource_class.column_names.each do |colname|%>
+      <th><%= colname %></th>
+    <% end%>
+  </tr>
+
+<% collection.first(100).each do |ele| %>
+  <tr>
+    <% resource_class.column_names.each do |colname|%>
+      <td><%= eval("ele.#{colname}") %></td>
+    <% end%>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

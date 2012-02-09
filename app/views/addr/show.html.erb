@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<% resource_class.column_names.each do |colname|%>
+  <p>
+    <b> <%= colname %>: </b>
+    <%= eval("resource.#{colname}") %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_resource_url %> |
+<%= link_to 'Back', collection_url %>

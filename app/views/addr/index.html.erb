@@ -1,0 +1,27 @@
+<h1>Listing <%= resource_class %></h1>
+
+<table border=1 cellspacing=0>
+  <tr>
+    <% resource_class.column_names.each do |colname|%>
+      <th><%= colname %></th>
+    <% end%>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% collection.each do |ele| %>
+  <tr>
+    <% resource_class.column_names.each do |colname|%>
+      <td><%= eval("ele.#{colname}") %></td>
+    <% end%>
+    <td><%= link_to 'Show', ele %></td>
+    <td><%= link_to 'Edit', edit_crawler_path(ele) %></td>
+    <td><%= link_to 'Destroy', ele, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to "New #{resource_class}", new_resource_url %>

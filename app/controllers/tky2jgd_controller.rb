@@ -9,7 +9,6 @@ class Tky2jgdController < ApplicationController
       
       case params[:type]
       when 'ipc2jgd'
-        p "HIT"
         oll = Tky2jgd.ipc2jgd([lat,lng])
       when 'jgd2ipc'
         oll = Tky2jgd.jgd2ipc([lat,lng])
@@ -19,9 +18,12 @@ class Tky2jgdController < ApplicationController
         oll = Tky2jgd.tky2jgd([lat,lng])
       end
       
-      
+      if(!oll||!oll[0]||!oll[1])
+        p "fail:#{ll}"
+      end
       @lat = oll[0]
       @lng = oll[1]
+
     end
     respond_to do |format|
       format.html

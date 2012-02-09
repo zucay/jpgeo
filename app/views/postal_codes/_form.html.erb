@@ -1,0 +1,23 @@
+<%= form_for(resource) do |f| %>
+  <% if resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(resource.errors.count, "error") %> prohibited this session from being saved:</h2>
+
+      <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% resource_class.column_names.each do |colname|%>
+    <div class="field">
+      <%= f.label eval(":#{colname}") %><br />
+      <%= f.text_field eval(":#{colname}") %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'mymatrix'
 class Tky2jgd < ActiveRecord::Base
 	validates_uniqueness_of :meshcode
@@ -21,6 +22,7 @@ class Tky2jgd < ActiveRecord::Base
 		return out
 	end
 	def self.tky2jgd(latlng, opts = {:reverse=>false})
+
 		o_latlng = [nil, nil]
 		mesh2 = self.tkylatlng2mesh(latlng)
 		#tkylatlng2mesh(latlng)で取得されるメッシュは2次メッシュ6桁なので、3次メッシュの中心(55)を追加
@@ -33,11 +35,13 @@ class Tky2jgd < ActiveRecord::Base
 		end
 		if(!ele)
 			#raise "meshcode not found, latlng=#{latlng[0]}, #{latlng[1]}"
+                  p "meshcode not found, latlng=#{latlng[0]}, #{latlng[1]}"
 		else
 			#dl:経度の秒補正、db:緯度の秒補正
 			dl = ele.dL
 			db = ele.dB
-
+                  p "dl:#{dl}"
+                  p "db:#{db}"
 			if(opts[:reverse] == false)
 				o_latlng[0] =latlng[0] + db/3600
 				o_latlng[1] =latlng[1] + dl/3600
@@ -54,7 +58,8 @@ class Tky2jgd < ActiveRecord::Base
 	def self.ipc2jgd(latlng256)
 		lat = (latlng256[0].to_f/256)/3600
 		lng = (latlng256[1].to_f/256)/3600
-		out = self.tky2jgd([lat, lng])
+          ll = [lat, lng]
+		out = self.tky2jgd(ll)
 		#p "jgd:#{out}"
 		return out
 	end
