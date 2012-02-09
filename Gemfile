@@ -37,3 +37,7 @@ group :development do
 end
 gem 'spreadsheet'
 gem 'inherited_resources'
+
+group :production do
+  gem 'therubyracer-heroku'
+end
