@@ -1,0 +1,60 @@
+#!/bin/bash
+# unicorn management script
+# author: zucay
+
+
+rails_root=$(cd $(dirname $0); cd ..; pwd)
+unicorn_pid=$rails_root + "/tmp/pids/unicorn.pid"
+unicorn_conf=$rails_root + "/config/unicorn.rb"
+NAME=Unicorn
+#bundle exec unicorn_rails -c $unicorn_conf -D 
+
+kill_unicorn () {
+		pid=`status`
+		if [ 0 != $pid ]; then
+				cmd="kill `cat ${unicorn_pid}`"
+				($cmd)
+				echo $cmd
+		else
+				echo 'no proc'
+		fi
+}
+status () {
+		local -i out
+		out=0
+		if [ -f $unicorn_pid ]; then
+				out=$(cat $unicorn_pid)
+		fi
+		echo $out
+		return
+}
+
+
+case "$1" in
+		start)				
+				echo "Start ${NAME}"
+				pid=`status`
+				if [ 0 != $pid ]; then
+						echo 'already running'
+				else
+						cmd="bundle exec unicorn_rails -D -c ${unicorn_conf} -E production"
+						echo $cmd
+						($cmd)
+				fi
+				;;
+		stop)
+				echo "Stop ${NAME}"
+				kill_unicorn
+				;;
+		status)				
+				pid=`status`
+				if [ 0 != $pid ]; then
+						echo $NAME" is running. pid:${pid}"
+				else
+						echo $NAME" is not running."
+				fi
+				;;
+		*)
+				echo "Usage: $NAME {start|stop|status}"
+				;;
+esac

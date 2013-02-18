@@ -17,7 +17,6 @@ development:
   encoding: unicode
   database: geoutil_development
   pool: 5
-  #host: 192.168.11.88
   host: localhost
   port: 5432
   username: postgres
@@ -46,7 +45,7 @@ test:
   encoding: unicode
   database: geoutil_test
   pool: 5
-  host: 192.168.11.88
+  host: localhost
   port: 5432
   username: postgres
   password: user
@@ -56,5 +55,7 @@ production:
   encoding: unicode
   database: geoutil_production
   pool: 5
-  username: geoutil
-  password:
+  host: localhost
+  port: 5432
+  username: postgres
+  password: user
